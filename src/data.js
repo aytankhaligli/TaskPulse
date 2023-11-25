@@ -59,6 +59,7 @@ export const organizations = [
 export const tasks = [
   {
     id: 1,
+    organizationId: 2,
     title: "Develop New Feature",
     description: "Implement a new feature for the project",
     deadline: "2023-12-01",
@@ -67,6 +68,7 @@ export const tasks = [
   },
   {
     id: 2,
+    organizationId: 1,
     title: "Bug Fixing",
     description: "Fix bugs reported in the testing phase",
     deadline: "2023-12-05",

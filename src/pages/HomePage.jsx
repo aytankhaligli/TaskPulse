@@ -1,19 +1,30 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { findCurrentOrganization } from "../redux/slices/OrganizationsSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentOrganization } from "../redux/slices/OrganizationsSlice";
+import { selectOrganizationTasks } from "../redux/slices/TasksSlice";
+import { selectOrganizationUsers } from "../redux/slices/UsersSlice";
 
 function HomePage() {
   const users = useSelector((state) => state.user);
   const organizations = useSelector((state) => state.organization);
+  const tasks = useSelector((state) => state.task);
   const currentUser = useSelector((state) => state.auth.currentUser);
 
-  console.log(currentUser);
+  // console.log(tasks);
 
-  const currOrganization = findCurrentOrganization(
+  const currOrganization = selectCurrentOrganization(
     organizations,
     currentUser.organizationId
   );
-  console.log(currOrganization);
+  const organizationTasks = selectOrganizationTasks(
+    tasks,
+    currentUser.organizationId
+  );
+  const organizationUsers = selectOrganizationUsers(
+    users,
+    currentUser.organizationId
+  );
+  console.log(organizationUsers);
   return (
     <div>
       <p>{currOrganization.organizationName}</p>
@@ -22,9 +33,13 @@ function HomePage() {
           <button>Create User</button>
         </Link>
       )}
-      {users.map((user) => (
+      {organizationUsers.map((user) => (
         <p key={user.id}>{user.name}</p>
       ))}
+      <Link to="/createtask">
+        <button>Create Task</button>
+      </Link>
+      <div>{organizationTasks.map((task) => task.title)}</div>
     </div>
   );
 }

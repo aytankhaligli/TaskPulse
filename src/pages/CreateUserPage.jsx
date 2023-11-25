@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../redux/slices/UsersSlice";
 import { useNavigate } from "react-router-dom";
+import { selectCurrentOrganization } from "../redux/slices/OrganizationsSlice";
 
 function CreateUserPage() {
   const [name, setName] = useState("");
@@ -12,10 +13,14 @@ function CreateUserPage() {
   const navigate = useNavigate();
 
   const users = useSelector((state) => state.user);
-  const currOrganization = useSelector(
-    (state) => state.organization.currOrganization
-  );
+  const organizations = useSelector((state) => state.organization);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
+
+  const currOrganization = selectCurrentOrganization(
+    organizations,
+    currentUser.organizationId
+  );
   const handleSubmit = (e) => {
     e.preventDefault();
     // localStorage.removeItem("users");

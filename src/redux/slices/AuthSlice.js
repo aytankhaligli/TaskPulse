@@ -17,6 +17,7 @@ export const authSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     currentUser: null,
+    errorText: null,
   },
   reducers: {
     login: (state, action) => {
@@ -29,14 +30,17 @@ export const authSlice = createSlice({
       if (user) {
         state.isAuthenticated = true;
         state.currentUser = user;
+        state.errorText = null;
       } else {
         state.isAuthenticated = false;
         state.currentUser = null;
+        state.errorText = "User not found or password incorrect";
       }
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.currentUser = null;
+      state.errorText = null;
     },
   },
 });
