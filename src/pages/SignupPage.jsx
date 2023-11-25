@@ -13,11 +13,13 @@ function SignupPage() {
 
   const navigate = useNavigate();
 
-  const organizations = useSelector((state) => state.organization);
+  const organizations = useSelector(
+    (state) => state.organization.organizations
+  );
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.removeItem("organizations");
+    // localStorage.removeItem("organizations");
     dispatch(
       createOrganization({
         id: organizations[organizations.length - 1].id + 1,
@@ -31,8 +33,9 @@ function SignupPage() {
     );
     navigate("/home");
   };
-  console.log(organizations);
 
+  console.log(organizations);
+  console.log(useSelector((state) => state.organization.organizations));
   return (
     <form onSubmit={handleSubmit}>
       <div>
