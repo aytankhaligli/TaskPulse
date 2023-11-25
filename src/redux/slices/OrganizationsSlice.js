@@ -8,35 +8,25 @@ let initialState;
 try {
   initialState = localStorageData
     ? JSON.parse(localStorageData)
-    : { currOrganization: null, organizations };
+    : organizations;
 } catch (error) {
   console.error("Error parsing localStorage data:", error);
-  initialState = { currOrganization: null, organizations };
+  initialState = organizations;
 }
 
 export const organizationsSlice = createSlice({
   name: "organizations",
   initialState,
   reducers: {
-    // createOrganization: (state, action) => {
-    //   const newOrg = action.payload;
-    //   console.log(newOrg);
-    //   state.push(newOrg);
-    //   localStorage.setItem("organizations", JSON.stringify(state));
-    //   newOrganization = newOrg;
-    //   currentOrganization = newOrg;
-    // },
     createOrganization: (state, action) => {
-      state.currOrganization = action.payload;
-      state.organizations.push(state.currOrganization);
+      state.push(action.payload);
       localStorage.setItem("organizations", JSON.stringify(state));
     },
   },
 });
 
 export const { createOrganization } = organizationsSlice.actions;
-// export const getNewOrganization = () => newOrganization;
-// export const getCurrentOrganization = () => currentOrganization;
-export const selectCurrentOrganization = (state) => state.organizations;
+export const findCurrentOrganization = (state, id) =>
+  state.filter((org) => org.id === id)[0];
 
 export default organizationsSlice.reducer;

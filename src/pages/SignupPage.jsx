@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrganization } from "../redux/slices/OrganizationsSlice";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../redux/slices/UsersSlice";
+import { login } from "../redux/slices/AuthSlice";
 
 function SignupPage() {
   const [organizationName, setOrganizationName] = useState("");
@@ -13,13 +15,14 @@ function SignupPage() {
 
   const navigate = useNavigate();
 
-  const organizations = useSelector(
-    (state) => state.organization.organizations
-  );
+  const organizations = useSelector((state) => state.organization);
+  const users = useSelector((state) => state.user);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    // localStorage.removeItem("organizations");
+    localStorage.removeItem("organizations");
     dispatch(
       createOrganization({
         id: organizations[organizations.length - 1].id + 1,
@@ -31,11 +34,25 @@ function SignupPage() {
         password,
       })
     );
-    navigate("/home");
+    dispatch(
+      createUser(
+        createUser({
+          id: users[users.length - 1].id + 1,
+          // organizationId: currOrganization.id,
+          name: "",
+          surname: "",
+          username,
+          email,
+          password,
+          isAdmin: true,
+        })
+      )
+    );
+    dispatch(login({ email, password }));
+    isAuthenticated && navigate("/home");
   };
 
   console.log(organizations);
-  console.log(useSelector((state) => state.organization.organizations));
   return (
     <form onSubmit={handleSubmit}>
       <div>

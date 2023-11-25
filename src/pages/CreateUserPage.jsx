@@ -27,6 +27,7 @@ function CreateUserPage() {
         surname,
         email,
         password,
+        isAdmin: false,
       })
     );
     navigate("/home");
