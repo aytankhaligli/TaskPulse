@@ -1,29 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { usersList } from "../../data";
+import { createSliceFromLocalStorage } from "../../utils";
 
-const localStorageData = localStorage.getItem("users");
+const usersSlice = createSliceFromLocalStorage("users", usersList);
 
-let initialState;
-
-try {
-  initialState = localStorageData ? JSON.parse(localStorageData) : usersList;
-} catch (error) {
-  console.error("Error parsing localStorage data:", error);
-  initialState = usersList;
-}
-
-export const usersSlice = createSlice({
-  name: "users",
-  initialState,
-  reducers: {
-    createUser: (state, action) => {
-      state.push(action.payload);
-      localStorage.setItem("users", JSON.stringify(state));
-    },
-  },
-});
-
-// Action creators are generated for each case reducer function
-export const { createUser } = usersSlice.actions;
+export const { createItem: createUser } = usersSlice.actions;
+export const selectOrganizationUsers = (state, id) =>
+  state.filter((user) => user.organizationId === id);
 
 export default usersSlice.reducer;

@@ -1,32 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { organizations } from "../../data";
+import { createSliceFromLocalStorage } from "../../utils";
 
-const localStorageData = localStorage.getItem("organizations");
-
-let initialState;
-
-try {
-  initialState = localStorageData
-    ? JSON.parse(localStorageData)
-    : organizations;
-} catch (error) {
-  console.error("Error parsing localStorage data:", error);
-  initialState = organizations;
-}
-
-export const organizationsSlice = createSlice({
-  name: "organizations",
-  initialState,
-  reducers: {
-    createOrganization: (state, action) => {
-      state.push(action.payload);
-      localStorage.setItem("organizations", JSON.stringify(state));
-    },
-  },
-});
-
-export const { createOrganization } = organizationsSlice.actions;
-export const findCurrentOrganization = (state, id) =>
-  state.filter((org) => org.id === id)[0];
+const organizationsSlice = createSliceFromLocalStorage(
+  "organizations",
+  organizations
+);
+export const { createItem: createOrganization } = organizationsSlice.actions;
+export const selectCurrentOrganization = (state, id) =>
+  state.find((org) => org.id === id);
 
 export default organizationsSlice.reducer;
