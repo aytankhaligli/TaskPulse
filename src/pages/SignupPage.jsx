@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrganization } from "../redux/slices/OrganizationsSlice";
+import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
   const [organizationName, setOrganizationName] = useState("");
@@ -10,11 +11,13 @@ function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const organizations = useSelector((state) => state.organization);
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    // localStorage.removeItem("organizations");
+    localStorage.removeItem("organizations");
     dispatch(
       createOrganization({
         id: organizations[organizations.length - 1].id + 1,
@@ -26,6 +29,7 @@ function SignupPage() {
         password,
       })
     );
+    navigate("/home");
   };
   console.log(organizations);
 

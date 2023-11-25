@@ -21,11 +21,9 @@ export const organizationsSlice = createSlice({
   reducers: {
     createOrganization: (state, action) => {
       const newOrg = action.payload;
-      const updateOrganizations = state.push(newOrg);
-      localStorage.setItem(
-        "organizations",
-        JSON.stringify(updateOrganizations)
-      );
+      console.log(newOrg);
+      state.push(newOrg);
+      localStorage.setItem("organizations", JSON.stringify(state));
       newOrganization = newOrg;
     },
   },

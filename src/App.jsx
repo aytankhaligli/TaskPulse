@@ -1,21 +1,17 @@
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
-import { getNewOrganization } from "./redux/slices/OrganizationsSlice";
+import WelcomingPage from "./pages/WelcomingPage";
+import CreateUserPage from "./pages/CreateUserPage";
 
 function App() {
-  const currOrganization = getNewOrganization();
-  console.log(currOrganization);
   return (
-    <>
-      <h1>TaskPulse</h1>
-      {/* <div>
-        <div>
-          <button>Sign Up</button>
-          <button>Login</button>
-        </div>
-      </div> */}
-      {currOrganization ? <HomePage /> : <SignupPage />}
-    </>
+    <Routes>
+      <Route path="/" element={<WelcomingPage />} />
+      <Route path="/home" element={<HomePage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/create" element={<CreateUserPage />} />
+    </Routes>
   );
 }
 
