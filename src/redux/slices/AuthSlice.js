@@ -22,10 +22,11 @@ export const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       const { email, password } = action.payload;
-      console.log(action.payload);
-      const user = initialState.find(
-        (u) => u.email === email && u.password === password
-      );
+      console.log(initialState);
+      const user = initialState.find((u) => {
+        console.log(u.email, email);
+        return u.email === email && u.password === password;
+      });
 
       if (user) {
         state.isAuthenticated = true;
@@ -42,11 +43,16 @@ export const authSlice = createSlice({
       state.currentUser = null;
       state.errorText = null;
     },
+    signup: (state, action) => {
+      state.isAuthenticated = true;
+      state.currentUser = action.payload;
+      state.errorText = null;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { login, logout } = authSlice.actions;
+export const { login, logout, signup } = authSlice.actions;
 
 export const selectAuthState = (state) => state.auth;
 
