@@ -18,6 +18,8 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  // Hash the password
+
   const navigate = useNavigate();
   // Get data from store
   const organizations = useSelector((state) => state.organization);
@@ -137,6 +139,7 @@ function SignupPage() {
           placeholder="*********"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
+          minLength={6}
         >
           <Label text="Password" />
         </Input>

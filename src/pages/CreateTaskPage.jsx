@@ -19,7 +19,7 @@ function CreateTaskPage() {
   const [deadline, setDeadline] = useState(new Date());
   const [status, setStatus] = useState("To Do");
   const [assignedUsers, setAssignedUsers] = useState([]);
-  console.log(deadline);
+
   // Store data
   const tasks = useSelector((state) => state.task);
   const organizations = useSelector((state) => state.organization);

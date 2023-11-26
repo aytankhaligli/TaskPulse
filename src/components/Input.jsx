@@ -5,6 +5,8 @@ function Input({
   type = "text",
   children,
   error = null,
+  readOnly = false,
+  minLength = 4,
 }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 mb-4">
@@ -15,8 +17,9 @@ function Input({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        minLength={type === "password" ? 6 : 4}
+        minLength={minLength}
         required
+        readOnly={readOnly}
       />
       {error && (
         <p className="text-red-500 text-sm w-full text-left">{error}</p>

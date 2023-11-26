@@ -12,7 +12,6 @@ try {
   console.error("Error parsing localStorage data:", error);
   initialState = usersList;
 }
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -29,7 +28,6 @@ export const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       const { email, password } = action.payload;
-      console.log(initialState);
       const user = initialState.find(
         (u) => u.email === email && u.password === password
       );
@@ -57,10 +55,18 @@ export const authSlice = createSlice({
       state.errorText = null;
       localStorage.setItem("currentUser", JSON.stringify(state));
     },
+    updatePassword: (state, action) => {
+      state.currentUser.password = action.payload;
+      localStorage.setItem("currentUser", JSON.stringify(state));
+    },
   },
 });
 
 export const { login, logout, signup } = authSlice.actions;
+export const updatePassword = (password) => ({
+  type: "auth/updatePassword",
+  payload: password,
+});
 
 export const selectAuthState = (state) => state.auth;
 

@@ -22,6 +22,15 @@ export const createSliceFromLocalStorage = (name, defaultData) => {
         state.push(action.payload);
         localStorage.setItem(name, JSON.stringify(state));
       },
+      updateUserPassword: (state, action) => {
+        const { userId, password } = action.payload;
+        const userToUpdate = state.find((user) => user.id === userId);
+
+        if (userToUpdate) {
+          userToUpdate.password = password;
+          localStorage.setItem("users", JSON.stringify(state));
+        }
+      },
     },
   });
 };

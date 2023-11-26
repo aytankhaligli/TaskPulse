@@ -5,6 +5,7 @@ import WelcomingPage from "./pages/WelcomingPage";
 import CreateUserPage from "./pages/CreateUserPage";
 import LoginPage from "./pages/LoginPage";
 import CreateTaskPage from "./pages/CreateTaskPage";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/create" element={<CreateUserPage />} />
       <Route path="/createtask" element={<CreateTaskPage />} />
+      <Route path="/profile" element={<UserProfile />} />
     </Routes>
   );
 }

@@ -1,4 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import editIcon from "../assets/edit.svg";
+import { updateTask } from "../redux/slices/TasksSlice";
 
 function ItemCard({ item }) {
   // Access all users
@@ -10,6 +12,12 @@ function ItemCard({ item }) {
     users.filter((user) =>
       item.assignedTo.some((assignment) => assignment.id === user.id)
     );
+
+  // Edit Task
+  // const dispatch = useDispatch();
+  // const handleClick = (newData) => {
+  //   dispatch(updateTask(item.id, newData));
+  // };
 
   return (
     <li className="relative p-3 bg-white text-gray-800 rounded-md text-lg flex items-center justify-between shadow-md">
@@ -44,6 +52,9 @@ function ItemCard({ item }) {
               )}`}
             </div>
           ))}
+          {/* <div onClick={handleClick} className="cursor-pointer">
+            Edit
+          </div> */}
         </div>
       )}
     </li>

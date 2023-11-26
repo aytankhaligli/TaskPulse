@@ -13,17 +13,12 @@ function HomePage() {
   const organizations = useSelector((state) => state.organization);
   const tasks = useSelector((state) => state.task);
   const currentUser = useSelector((state) => state.auth.currentUser);
-
-  console.log(currentUser);
-
   // For navigation
   const navigate = useNavigate();
-
   //When there isn't current user go to welcoming page
   useEffect(() => {
     if (!currentUser) navigate("/");
   }, [currentUser, navigate]);
-
   // Current organization and organization users and tasks
   const currOrganization =
     currentUser &&
@@ -58,7 +53,10 @@ function HomePage() {
               {currOrganization.organizationName}
             </h1>
             <div className="flex gap-5 items-center">
-              <div className="px-4 py-2 rounded-md bg-cyan-800 flex items-center justify-center text-white">
+              <div
+                className="px-4 py-2 rounded-md bg-cyan-800 flex items-center justify-center text-white cursor-pointer"
+                onClick={() => navigate("/profile")}
+              >
                 {currentUser.username}
               </div>
               <div

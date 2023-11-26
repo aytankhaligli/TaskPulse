@@ -51,6 +51,7 @@ function LoginPage() {
           placeholder="********"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          minLength={6}
         />
         <Button text="Submit" style={{ border: "1px solid cyan" }} />
         <p className="text-center text-sm mt-6">

@@ -45,7 +45,6 @@ function CreateUserPage() {
     );
     navigate("/home");
   };
-  console.log(users);
 
   return (
     <div className="w-full h-screen bg-[url('./assets/login-bg.jpg')] bg-cover flex items-center justify-center">
