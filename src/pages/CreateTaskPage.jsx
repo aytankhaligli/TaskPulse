@@ -15,7 +15,7 @@ function CreateTaskPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("To Do");
   const [assignedUsers, setAssignedUsers] = useState([]);
 
   const tasks = useSelector((state) => state.task);
@@ -33,7 +33,6 @@ function CreateTaskPage() {
     users,
     currentUser.organizationId
   );
-  console.log(currOrganization);
 
   const options = [
     {

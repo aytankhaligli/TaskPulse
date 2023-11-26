@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 
 function ItemCard({ item }) {
+  console.log(item);
   // Access all users
   const users = useSelector((state) => state.user);
 
@@ -11,7 +12,7 @@ function ItemCard({ item }) {
 
   return (
     <li className="p-3 bg-white text-gray-800 rounded-md text-lg flex justify-between items-center shadow-md">
-      <p> {item.title ? item.title : item.username}</p>
+      {item.title ? item.title : item.name}
       {item.title && assignUser && (
         <div>
           <div className="w-10 h-10 rounded-full bg-cyan-800 flex items-center justify-center text-white">

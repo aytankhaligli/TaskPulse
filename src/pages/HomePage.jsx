@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentOrganization } from "../redux/slices/OrganizationsSlice";
 import { selectOrganizationTasks } from "../redux/slices/TasksSlice";
 import { selectOrganizationUsers } from "../redux/slices/UsersSlice";
 import Card from "../components/Card";
 import { useEffect } from "react";
+import { logout } from "../redux/slices/AuthSlice";
 
 function HomePage() {
   // access store data
@@ -12,6 +13,8 @@ function HomePage() {
   const organizations = useSelector((state) => state.organization);
   const tasks = useSelector((state) => state.task);
   const currentUser = useSelector((state) => state.auth.currentUser);
+
+  console.log(tasks);
 
   // For navigation
   const navigate = useNavigate();
@@ -39,19 +42,35 @@ function HomePage() {
     (task) => task.status === "Done"
   );
 
+  // Logout functionality
+  const dispatch = useDispatch();
+  const onhandleClick = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <>
       {currentUser && (
         <div className=" h-screen  p-10 bg-[url('./assets/home-bg.jpg')] bg-cover ">
-          <h1 className="text-2xl uppercase mb-6">
-            {currOrganization.organizationName}
-          </h1>
+          <div className="flex justify-between items-center  mb-6">
+            <h1 className="text-2xl uppercase">
+              {currOrganization.organizationName}
+            </h1>
+            <div
+              className="bg-cyan-800 text-white px-3 py-2 rounded-md cursor-pointer "
+              onClick={onhandleClick}
+            >
+              Log out
+            </div>
+          </div>
+
           <div className="flex items-start gap-4">
             <Card list={organizationUsers} title="Users">
               {currentUser.isAdmin && (
                 <Link
                   to="/create"
-                  className="text-gray-800 text-lg px-8 py-6 border-t border-gray-800"
+                  className="text-gray-800 text-lg px-8 py-6 border-t border-gray-800 hover:bg-gray-100"
                 >
                   Create User
                 </Link>
