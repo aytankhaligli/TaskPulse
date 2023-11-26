@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import Label from "../components/Label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Form from "../components/Form";
 import { updatePassword } from "../redux/slices/AuthSlice";
@@ -20,6 +20,8 @@ function UserProfile() {
     dispatch(updateUserPassword(currentUser.id, password));
     navigate("/home");
   };
+
+  useEffect(() => {}, [password]);
   return (
     <div className="w-full h-screen bg-[url('./assets/login-bg.jpg')] bg-cover flex items-center justify-center">
       <Form onSubmit={handleSubmit}>

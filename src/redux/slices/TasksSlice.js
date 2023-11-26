@@ -9,4 +9,9 @@ export const { createItem: createTask, editItem: updateTask } =
 export const selectOrganizationTasks = (state, id) =>
   state.filter((task) => task.organizationId === id);
 
+export const updateTaskStatus = (taskId, newStatus) => ({
+  type: "tasks/updateTaskStatus",
+  payload: { taskId, newStatus },
+});
+
 export default tasksSlice.reducer;

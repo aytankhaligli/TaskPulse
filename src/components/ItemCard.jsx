@@ -1,8 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import editIcon from "../assets/edit.svg";
-import { updateTask } from "../redux/slices/TasksSlice";
+import { updateTask, updateTaskStatus } from "../redux/slices/TasksSlice";
+import Select from "./Select";
+import { useEffect, useState } from "react";
 
 function ItemCard({ item }) {
+  const [newStatus, setNewStatus] = useState(item.status);
+  const [show, setShow] = useState(false);
   // Access all users
   const users = useSelector((state) => state.user);
 
@@ -13,12 +17,18 @@ function ItemCard({ item }) {
       item.assignedTo.some((assignment) => assignment.id === user.id)
     );
 
-  // Edit Task
-  // const dispatch = useDispatch();
-  // const handleClick = (newData) => {
-  //   dispatch(updateTask(item.id, newData));
-  // };
+  const dispatch = useDispatch();
 
+  //  Change Task Status
+  useEffect(() => {
+    const taskId = item.id;
+    dispatch(updateTaskStatus(taskId, newStatus));
+  }, [newStatus]);
+
+  // Edit task
+  const handleClick = () => {
+    setShow(true);
+  };
   return (
     <li className="relative p-3 bg-white text-gray-800 rounded-md text-lg flex items-center justify-between shadow-md">
       <div className="">
@@ -52,9 +62,32 @@ function ItemCard({ item }) {
               )}`}
             </div>
           ))}
-          {/* <div onClick={handleClick} className="cursor-pointer">
-            Edit
-          </div> */}
+          {show ? (
+            <div className="">
+              <Select
+                options={[
+                  {
+                    id: 1,
+                    name: "To Do",
+                  },
+                  {
+                    id: 2,
+                    name: "In Progress",
+                  },
+                  {
+                    id: 3,
+                    name: "Done",
+                  },
+                ]}
+                onChange={(e) => setNewStatus(e.target.value)}
+                value={newStatus}
+              />
+            </div>
+          ) : (
+            <div onClick={handleClick} className="cursor-pointer">
+              <img src={editIcon} alt="" className="w-6" />
+            </div>
+          )}
         </div>
       )}
     </li>
