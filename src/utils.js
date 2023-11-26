@@ -34,7 +34,6 @@ export const createSliceFromLocalStorage = (name, defaultData) => {
       updateTaskStatus: (state, action) => {
         const { taskId, newStatus } = action.payload;
         const taskToUpdate = state.find((task) => task.id === taskId);
-        console.log(taskId, newStatus);
         if (taskToUpdate) {
           taskToUpdate.status = newStatus;
           localStorage.setItem("tasks", JSON.stringify(state));
