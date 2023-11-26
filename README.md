@@ -55,13 +55,13 @@ TaskPulse is a web application that allows organizations to manage their daily t
 
 ## Getting Started
 
-To get started with the Task Manager Platform, follow these steps:
+To get started with the TaskPulse, follow these steps:
 
 1. **Clone the Repository:**
 
    ```bash
    git clone https://github.com/aytankhaligli/TaskPulse.git
-   cd task-manager-platform
+   cd taskpulse
    ```
 
 2. **Install Dependencies:**
@@ -73,10 +73,10 @@ To get started with the Task Manager Platform, follow these steps:
 3. **Start the Development Server:**
 
    ```bash
-   npm start
+   npm run dev
    ```
 
-   Visit `http://localhost:3000` in your browser to access the application.
+   Visit `http://localhost:5173` in your browser to access the application.
 
 ## User Stories
 
