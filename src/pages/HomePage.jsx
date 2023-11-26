@@ -1,11 +1,11 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentOrganization } from "../redux/slices/OrganizationsSlice";
 import { selectOrganizationTasks } from "../redux/slices/TasksSlice";
 import { selectOrganizationUsers } from "../redux/slices/UsersSlice";
-import Card from "../components/Card";
-import { useEffect } from "react";
 import { logout } from "../redux/slices/AuthSlice";
+import Card from "../components/Card";
 
 function HomePage() {
   // access store data
@@ -14,7 +14,7 @@ function HomePage() {
   const tasks = useSelector((state) => state.task);
   const currentUser = useSelector((state) => state.auth.currentUser);
 
-  console.log(tasks);
+  console.log(currentUser);
 
   // For navigation
   const navigate = useNavigate();
@@ -57,11 +57,16 @@ function HomePage() {
             <h1 className="text-2xl uppercase">
               {currOrganization.organizationName}
             </h1>
-            <div
-              className="bg-cyan-800 text-white px-3 py-2 rounded-md cursor-pointer "
-              onClick={onhandleClick}
-            >
-              Log out
+            <div className="flex gap-5 items-center">
+              <div className="px-4 py-2 rounded-md bg-cyan-800 flex items-center justify-center text-white">
+                {currentUser.username}
+              </div>
+              <div
+                className="bg-cyan-800 text-white px-3 py-2 rounded-md cursor-pointer "
+                onClick={onhandleClick}
+              >
+                Log out
+              </div>
             </div>
           </div>
 

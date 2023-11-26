@@ -3,7 +3,9 @@ import Button from "../components/Button";
 
 function WelcomingPage() {
   const navigate = useNavigate();
+  // login function
   const handleLogin = () => navigate("/login");
+  // signup function
   const handleSignUp = () => navigate("/signup");
   return (
     <div className=" w-full h-screen  bg-[url('assets/bg.jpg')] bg-cover ">

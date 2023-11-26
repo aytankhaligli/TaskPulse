@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../redux/slices/UsersSlice";
-import { useNavigate } from "react-router-dom";
 import { selectCurrentOrganization } from "../redux/slices/OrganizationsSlice";
 import Input from "../components/Input";
 import Label from "../components/Label";
@@ -27,17 +27,17 @@ function CreateUserPage() {
     organizations,
     currentUser.organizationId
   );
-  console.log(currOrganization);
+
   // Create user function
   const handleSubmit = (e) => {
     e.preventDefault();
-    // localStorage.removeItem("users");
     dispatch(
       createUser({
         id: users[users.length - 1].id + 1,
         organizationId: currOrganization.id,
         name,
         surname,
+        username: name,
         email,
         password,
         isAdmin: false,
@@ -49,7 +49,7 @@ function CreateUserPage() {
 
   return (
     <div className="w-full h-screen bg-[url('./assets/login-bg.jpg')] bg-cover flex items-center justify-center">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <h1 className="text-4xl font-semibold text-gray-700  mb-10 text-center">
           New<span className="text-cyan-600">User</span>
         </h1>
@@ -83,11 +83,7 @@ function CreateUserPage() {
         >
           <Label text="Password" />
         </Input>
-        <Button
-          text="Create User"
-          onClick={handleSubmit}
-          style={{ border: "1px solid black" }}
-        />
+        <Button text="Create User" style={{ border: "1px solid cyan" }} />
       </Form>
     </div>
   );
