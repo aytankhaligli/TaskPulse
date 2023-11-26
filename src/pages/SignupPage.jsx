@@ -16,96 +16,84 @@ function SignupPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorText, setErrorText] = useState(null);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-
+  // Get data from store
   const organizations = useSelector((state) => state.organization);
   const users = useSelector((state) => state.user);
   const { isAuthenticated } = useSelector((state) => state.auth);
-  console.log(isAuthenticated);
-  // console.log(users);
-  // console.log(organizations);
 
   const dispatch = useDispatch();
 
+  // Check if authenticate navigate to homepage
   useEffect(() => {
     isAuthenticated && navigate("/home");
   }, [dispatch, isAuthenticated, navigate]);
 
+  // Form Submit function
   const handleSubmit = (e) => {
     e.preventDefault();
-    // localStorage.removeItem("users");
-    // localStorage.removeItem("organizations");
 
-    if (
-      !organizationName ||
-      !phoneNumber ||
-      !address ||
-      !username ||
-      !email ||
-      !password
-    ) {
-      setErrorText("Please fill in all fields");
-      return;
-    } else if (password.length < 6) {
-      setErrorText("Password has to be min 6 alphanumeric characters");
+    // Check email is already registered
+    if (users.some((user) => user.email === email)) {
+      setError("This email address already registered");
       return;
     } else {
-      setErrorText(null);
-      dispatch(
-        createOrganization({
-          id: organizations[organizations.length - 1].id + 1,
-          organizationName,
-          phoneNumber,
-          address,
-          username,
-          email,
-          password,
-        })
-      );
-
-      dispatch(
-        createUser({
-          id: users[users.length - 1].id + 1,
-          organizationId: organizations.length - 1,
-          name: "",
-          surname: "",
-          username,
-          email,
-          password,
-          isAdmin: true,
-        })
-      );
-
-      dispatch(
-        signup({
-          id: users[users.length - 1].id + 1,
-          organizationId: organizations.length - 1,
-          name: "",
-          surname: "",
-          username,
-          email,
-          password,
-          isAdmin: true,
-        })
-      );
+      setError(null);
     }
+
+    // Create Organization
+    dispatch(
+      createOrganization({
+        id: organizations[organizations.length - 1].id + 1,
+        organizationName,
+        phoneNumber,
+        address,
+        username,
+        email,
+        password,
+      })
+    );
+
+    // Create User
+    dispatch(
+      createUser({
+        id: users[users.length - 1].id + 1,
+        organizationId: organizations[organizations.length - 1].id + 1,
+        name: "",
+        surname: "",
+        username,
+        email,
+        password,
+        isAdmin: true,
+      })
+    );
+
+    // Sign up as a this user
+    dispatch(
+      signup({
+        id: users[users.length - 1].id + 1,
+        organizationId: organizations[organizations.length - 1].id + 1,
+        name: "",
+        surname: "",
+        username,
+        email,
+        password,
+        isAdmin: true,
+      })
+    );
   };
 
   return (
     <div className="w-full h-full  bg-[url('./assets/signup-bg.jpg')] bg-cover flex  items-center justify-center">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <h1 className="text-4xl mb-6 text-center text-gray-700">
           Task<span className="text-cyan-600">Pulse</span>
         </h1>
         <p className="mb-4 text-center opacity-40">
           Sign up and create free TaskPulse account
         </p>
-
-        {errorText && (
-          <p className="text-sm pb-2 text-red-700 text-center">{errorText}</p>
-        )}
         <Input
           placeholder="Amazon"
           onChange={(e) => setOrganizationName(e.target.value)}
@@ -114,6 +102,7 @@ function SignupPage() {
           <Label text="Organization Name" />
         </Input>
         <Input
+          type="phone"
           placeholder="+994778909870"
           onChange={(e) => setPhoneNumber(e.target.value)}
           value={phoneNumber}
@@ -139,6 +128,7 @@ function SignupPage() {
           placeholder="leyla@gmail.com"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
+          error={error}
         >
           <Label text="Email Address" />
         </Input>
@@ -150,13 +140,9 @@ function SignupPage() {
         >
           <Label text="Password" />
         </Input>
-        <Button
-          text="Submit"
-          onClick={handleSubmit}
-          style={{ border: "1px solid black" }}
-        />
+        <Button text="Submit" style={{ border: "1px solid cyan" }} />
         <p className="text-center text-sm mt-6">
-          Aready have an account{" "}
+          Already have an account
           <Link to="/login" className="font-semibold underline">
             {" "}
             Login
