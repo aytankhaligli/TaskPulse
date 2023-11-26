@@ -73,10 +73,10 @@ To get started with the TaskPulse, follow these steps:
 3. **Start the Development Server:**
 
    ```bash
-   npm start
+   npm run dev
    ```
 
-   Visit `http://localhost:3000` in your browser to access the application.
+   Visit `http://localhost:5173` in your browser to access the application.
 
 ## User Stories
 
