@@ -95,7 +95,17 @@ function SignupPage() {
 
   return (
     <div className="w-full h-full  bg-[url('./assets/signup-bg.jpg')] bg-cover flex  items-center justify-center">
-      <Form errorText={errorText}>
+      <Form>
+        <h1 className="text-4xl mb-6 text-center text-gray-700">
+          Task<span className="text-cyan-600">Pulse</span>
+        </h1>
+        <p className="mb-4 text-center opacity-40">
+          Sign up and create free TaskPulse account
+        </p>
+
+        {errorText && (
+          <p className="text-sm pb-2 text-red-700 text-center">{errorText}</p>
+        )}
         <Input
           placeholder="Amazon"
           onChange={(e) => setOrganizationName(e.target.value)}

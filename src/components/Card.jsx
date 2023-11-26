@@ -4,7 +4,7 @@ import ItemCard from "./ItemCard";
 
 function Card({ list, title, children }) {
   return (
-    <div className="bg-white w-[300px] h-auto flex flex-col rounded-md shadow-md">
+    <div className="bg-gray-200 w-[300px] h-auto flex flex-col rounded-md shadow-md">
       <div className="px-8 py-6 border-b border-gray-800">
         <h1 className="text-gray-800 text-lg">{title}</h1>
       </div>

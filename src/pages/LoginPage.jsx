@@ -25,7 +25,16 @@ function LoginPage() {
 
   return (
     <div className="w-full h-screen bg-[url('assets/signup-bg.jpg')] bg-cover flex items-center justify-center">
-      <Form errorText={errorText}>
+      <Form>
+        <h1 className="text-4xl mb-6 text-center text-gray-700">
+          Task<span className="text-cyan-600">Pulse</span>
+        </h1>
+        <p className="mb-4 text-center opacity-40">
+          Sign in your TaskPulse account
+        </p>
+        {errorText && (
+          <p className="text-sm pb-2 text-red-700 text-center">{errorText}</p>
+        )}
         <Input
           type="email"
           label="Email address"
@@ -48,7 +57,6 @@ function LoginPage() {
         <p className="text-center text-sm mt-6">
           Dont have an account{" "}
           <Link to="/signup" className="font-semibold underline">
-            {" "}
             Register now
           </Link>
         </p>
